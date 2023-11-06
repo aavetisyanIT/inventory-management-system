@@ -1,4 +1,4 @@
-import { logError, logInfo, defaultMessage } from './logger.js';
+import { Logger } from './logger.js';
 
-logInfo(`${defaultMessage} printed in blue`);
-logError('some error message printed in red');
+Logger.info(`${Logger.defaultMessage} printed in blue`);
+Logger.error('some error message printed in red');

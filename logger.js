@@ -1,11 +1,13 @@
 import chalk from 'chalk';
 
-export function logInfo(message) {
-	console.log(chalk.blue(message));
-}
+export class Logger {
+	static defaultMessage = 'Hello World';
 
-export function logError(message) {
-	console.log(chalk.red(message));
-}
+	static info(message) {
+		console.log(chalk.blue(message));
+	}
 
-export const defaultMessage = 'Hello World';
+	static error(message) {
+		console.log(chalk.red(message));
+	}
+}

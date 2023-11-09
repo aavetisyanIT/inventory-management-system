@@ -1,4 +1,10 @@
-import { Logger } from './logger.js';
+import express from 'express';
+const app = express();
 
-Logger.info(`${Logger.defaultMessage} printed in blue`);
-Logger.error('some error message printed in red');
+const port = 3000;
+
+app.get('/', (req, res) => {
+	res.send('Hi there');
+});
+
+app.listen(port);

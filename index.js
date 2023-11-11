@@ -1,10 +1,22 @@
 import express from 'express';
-const app = express();
+import cluster from 'cluster';
 
-const port = 3000;
+if (cluster.isPrimary) {
+	cluster.fork();
+} else {
+	const app = express();
 
-app.get('/', (req, res) => {
-	res.send('Hi there');
-});
+	const port = 3000;
 
-app.listen(port);
+	function doWork(duration) {
+		const start = Date.now();
+		while (Date.now() - start < duration) {}
+	}
+
+	app.get('/', (req, res) => {
+		doWork(3000);
+		res.send('Hi there');
+	});
+
+	app.listen(port);
+}

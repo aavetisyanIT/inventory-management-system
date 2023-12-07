@@ -23,3 +23,16 @@ checkInventory(order)
 	.catch(errorMessage => {
 		console.log(errorMessage);
 	});
+
+const { checkInventory, processPayment, shipOrder } = require('./library.js');
+
+checkInventory(order)
+	.then(resolvedValueArray => {
+		return processPayment(resolvedValueArray);
+	})
+	.then(resolvedValueArray => {
+		return shipOrder(resolvedValueArray);
+	})
+	.then(successMessage => {
+		console.log(successMessage);
+	});

@@ -1,5 +1,3 @@
-const { shopForBeans, soakTheBeans, cookTheBeans } = require('./library.js');
-
 // Write your code below:
 function firstPromise() {
 	return new Promise(res => {
@@ -24,7 +22,13 @@ function thirdPromise(data) {
 	});
 }
 
-firstPromise()
-	.then(data => secondPromise(data))
-	.then(data => thirdPromise(data))
-	.then(data => console.log(data));
+async function getData() {
+	const firstCallData = await firstPromise();
+	console.log(firstCallData);
+	const secondPromiseData = await secondPromise('custom data');
+	console.log(secondPromiseData);
+	const result = await thirdPromise(firstCallData);
+	console.log(result);
+}
+
+getData();

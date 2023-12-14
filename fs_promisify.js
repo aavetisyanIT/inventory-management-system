@@ -1,10 +1,20 @@
 import fs from 'fs';
 
-fs.readFile('./test.txt', 'utf-8', (error, data) => {
-	if (error) {
-		return console.log('Error', error);
-	}
-	console.log('Data', data);
-});
+const asyncReadFile = filePath => {
+	return new Promise(function (resolve, reject) {
+		fs.readFile(filePath, 'utf-8', (err, data) => {
+			if (err) {
+				return reject(err);
+			}
+			resolve(data);
+		});
+	});
+};
 
-
+asyncReadFile('./test.txt')
+	.then(data => {
+		console.log(data);
+		return asyncReadFile('./test.txt');
+	})
+	.then(data => console.log(data))
+	.catch(err => console.log(err));

@@ -9,6 +9,7 @@ const {
 	getIndexById,
 	updateElement,
 	seedElements,
+	createElement,
 } = require('./utils');
 
 const expressions = [];
@@ -21,9 +22,7 @@ app.get('/expressions', (req, res, next) => {
 });
 
 app.get('/expressions/:id', (req, res, next) => {
-	const { id } = req.params;
-	const foundExpression = getElementById(id, expressions);
-	const index = getIndexById(id, expressions);
+	const foundExpression = getElementById(req.params.id, expressions);
 	if (foundExpression) {
 		res.send(foundExpression);
 	} else {
@@ -32,11 +31,20 @@ app.get('/expressions/:id', (req, res, next) => {
 });
 
 app.put('/expressions/:id', (req, res, next) => {
-	const { id } = req.params;
-	const index = getIndexById(id, expressions);
-	if (index === -1) return res.status(404).send('ID is invalid!');
-	const updatedElement = updateElement(id, req.query, expressions);
-	res.send(updatedElement);
+	console.log('put');
+	const expressionIndex = getIndexById(req.params.id, expressions);
+	if (expressionIndex !== -1) {
+		updateElement(req.params.id, req.query, expressions);
+		res.send(expressions[expressionIndex]);
+	} else {
+		res.status(404).send();
+	}
+});
+
+// Add your POST handler below:
+app.post('expressions', (req, res, next) => {
+	console.log('post');
+	res.status(201).send('Hello');
 });
 
 app.listen(PORT, () => {

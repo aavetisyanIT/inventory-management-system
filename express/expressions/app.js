@@ -14,6 +14,8 @@ const {
 
 const expressions = [];
 seedElements(expressions, 'expressions');
+const animals = [];
+seedElements(animals, 'animals');
 
 const PORT = process.env.PORT || 4001;
 
@@ -50,16 +52,47 @@ app.post('/expressions', (req, res, next) => {
 	}
 });
 
-// Add your DELETE handler below:
 app.delete('/expressions/:id', (req, res, next) => {
-	const { id } = req.params;
-	const deletedElement = getElementById(id, expressions);
-	if (deletedElement) {
-		const deletedElementIndex = getIndexById(id, expressions);
-		expressions.splice(deletedElementIndex, 1);
-		return res.status(204).send(deletedElement);
+	const expressionIndex = getIndexById(req.params.id, expressions);
+	if (expressionIndex !== -1) {
+		expressions.splice(expressionIndex, 1);
+		res.status(204).send();
+	} else {
+		res.status(404).send();
 	}
-	res.status(404).send('Wrong ID');
+});
+
+app.get('/animals', (req, res, next) => {
+	res.status(200).send(animals);
+});
+
+app.get('/animals/:id', (req, res, next) => {
+	const animal = getElementById(req.params.id, animals);
+	if (animal) {
+		res.send(animal);
+		return;
+	}
+	res.status(404).send('Error');
+});
+
+app.put('/animals/:id', (req, res, next) => {
+	const animalIndex = getIndexById(req.params.id, animals);
+	if (animalIndex !== -1) {
+		updateElement(req.params.id, req.query, animals);
+		res.send(animals[animalIndex]);
+		return;
+	}
+	res.status(404).send('Error');
+});
+
+app.post('/animals', ({ query }, res, next) => {
+	const newAnimal = createElement('animals', query);
+	if (newAnimal) {
+		animals.push(newAnimal);
+		res.status(201).send(newAnimal);
+		return;
+	}
+	return res.status(400).send();
 });
 
 app.listen(PORT, () => {

@@ -42,9 +42,13 @@ app.put('/expressions/:id', (req, res, next) => {
 });
 
 // Add your POST handler below:
-app.post('expressions', (req, res, next) => {
-	console.log('post');
-	res.status(201).send('Hello');
+app.post('/expressions', (req, res, next) => {
+  const createdExpression = createElement('expressions', req.query);
+  if(createdExpression) {
+    expressions.push(createdExpression);
+    return res.status(201).send(createdExpression);
+  }
+	res.status(400).send('Expressiosn is not created');
 });
 
 app.listen(PORT, () => {

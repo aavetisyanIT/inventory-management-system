@@ -31,7 +31,6 @@ app.get('/expressions/:id', (req, res, next) => {
 });
 
 app.put('/expressions/:id', (req, res, next) => {
-	console.log('put');
 	const expressionIndex = getIndexById(req.params.id, expressions);
 	if (expressionIndex !== -1) {
 		updateElement(req.params.id, req.query, expressions);
@@ -41,14 +40,26 @@ app.put('/expressions/:id', (req, res, next) => {
 	}
 });
 
-// Add your POST handler below:
 app.post('/expressions', (req, res, next) => {
-  const createdExpression = createElement('expressions', req.query);
-  if(createdExpression) {
-    expressions.push(createdExpression);
-    return res.status(201).send(createdExpression);
-  }
-	res.status(400).send('Expressiosn is not created');
+	const receivedExpression = createElement('expressions', req.query);
+	if (receivedExpression) {
+		expressions.push(receivedExpression);
+		res.status(201).send(receivedExpression);
+	} else {
+		res.status(400).send();
+	}
+});
+
+// Add your DELETE handler below:
+app.delete('/expressions/:id', (req, res, next) => {
+	const { id } = req.params;
+	const deletedElement = getElementById(id, expressions);
+	if (deletedElement) {
+		const deletedElementIndex = getIndexById(id, expressions);
+		expressions.splice(deletedElementIndex, 1);
+		return res.status(204).send(deletedElement);
+	}
+	res.status(404).send('Wrong ID');
 });
 
 app.listen(PORT, () => {

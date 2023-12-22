@@ -95,6 +95,16 @@ app.post('/animals', ({ query }, res, next) => {
 	return res.status(400).send();
 });
 
+app.delete('/animals/:id', ({ params }, res, next) => {
+	const { id } = params;
+	const animalIndex = getIndexById(id, animals);
+	if (animalIndex !== -1) {
+		const deletedAnimal = animals.splice(animalIndex, 1);
+		res.status(204).send(deletedAnimal);
+	}
+	res.status(404).send();
+});
+
 app.listen(PORT, () => {
 	console.log(`Listening on port ${PORT}`);
 });

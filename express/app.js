@@ -3,27 +3,12 @@ const app = express();
 
 const PORT = process.env.PORT || 4001;
 
-const currencies = {
-	diram: {
-		countries: ['UAE', 'Morocco'],
-	},
-	real: {
-		countries: ['Brazil'],
-	},
-	dinar: {
-		countries: ['Algeria', 'Bahrain', 'Jordan', 'Kuwait'],
-	},
-	vatu: {
-		countries: ['Vanuatu'],
-	},
-	shilling: {
-		countries: ['Tanzania', 'Uganda', 'Somalia', 'Kenya'],
-	},
-};
+const soups = ['gazpacho', 'borscht', 'primordial', 'avgolemono', 'laksa'];
 
-app.put('/currencies/:name/countries', ({ params, query }, res) => {
-	currencies[params.name]['countries'] = query.countries;
-	res.send(query);
+app.post('/soups', ({ query }, res) => {
+	const newSoup = query.name;
+	soups.push(newSoup);
+	res.status(201).send(newSoup);
 });
 
 app.listen(PORT, () => {

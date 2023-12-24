@@ -33,6 +33,17 @@ app.get('/api/quotes', ({ query }, res) => {
 	}
 });
 
+app.post('/api/quotes', ({ query }, res) => {
+	const { person, quote } = query;
+	if (!person || !quote) {
+		res.status(404).send();
+		return;
+	}
+	const newQuote = { quote, person };
+	quotes.push({ quote: newQuote });
+	res.send({ quote: newQuote });
+});
+
 app.listen(PORT, () => {
 	console.log('Server is running on port:', PORT);
 });

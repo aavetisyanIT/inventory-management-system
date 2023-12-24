@@ -18,6 +18,21 @@ app.get('/api/quotes/random', (_, res) => {
 	res.status(404).send('Error');
 });
 
+app.get('/api/quotes', ({ query }, res) => {
+	if (Object.keys(query).length === 0) {
+		res.send({ quotes: quotes });
+		return;
+	}
+	const { person } = query;
+	if (person) {
+		const filteredByAuthorQuotes = quotes.filter(quote => {
+			return person === quote.person;
+		});
+		res.send({ quotes: filteredByAuthorQuotes });
+		return;
+	}
+});
+
 app.listen(PORT, () => {
 	console.log('Server is running on port:', PORT);
 });

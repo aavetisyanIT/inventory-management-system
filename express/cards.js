@@ -88,6 +88,7 @@ app.get('/cards/:cardId', (req, res, next) => {
 // Update a Card
 app.put('/cards/:cardId', (req, res, next) => {
 	const newCard = req.body;
+	const cardId = Number(req.params.cardId);
 	const validSuits = ['Clubs', 'Diamonds', 'Hearts', 'Spades'];
 	const validRanks = [
 		'2',

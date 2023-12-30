@@ -17,14 +17,32 @@ const getGenres = async () => {
 		const response = await fetch(urlToFatch, options);
 		if (response.ok) {
 			const jsonResponse = await response.json();
-			const gernes = jsonResponse.gernes;
-			console.log('AAA gernes', gernes);
-			return gernes;
+			const genres = jsonResponse.genres;
+			console.log('AAA genres', genres);
+			return genres;
 		}
 	} catch (error) {
 		console.log(error);
 	}
 };
+
+try {
+	const options = {
+		method: 'GET',
+		headers: {
+			accept: 'application/json',
+		},
+	};
+	const response = await fetch(urlToFatch, options);
+	if (response.ok) {
+		const jsonResponse = await response.json();
+		const genres = jsonResponse.genres;
+		console.log('AAA genres', genres);
+		return genres;
+	}
+} catch (error) {
+	console.log(error);
+}
 
 const getMovies = () => {
 	const selectedGenre = getSelectedGenre();

@@ -21,3 +21,11 @@ INSERT INTO celebs (id, name, age)
 VALUES (4, 'Taylor Swift', 33); 
 
 SELECT * FROM celebs;
+
+UPDATE celebs
+SET twitter_handle = '@taylorswift13'
+WHERE id = 4;
+
+SELECT * FROM celebs;
+
+

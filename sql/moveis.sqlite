@@ -1,1 +1,2 @@
 SELECT * FROM movies WHERE name LIKE 'se_en';
+SELECT name, year, imdb_rating  FROM movies ORDER BY imdb_rating DESC;

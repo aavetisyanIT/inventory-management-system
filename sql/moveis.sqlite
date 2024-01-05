@@ -1,2 +1,9 @@
 SELECT * FROM movies WHERE name LIKE 'se_en';
 SELECT name, year, imdb_rating  FROM movies ORDER BY imdb_rating DESC;
+
+SELECT name, 
+  CASE
+    WHEN genre = 'comedy' OR genre = 'romance' THEN 'Chill'
+    ELSE 'Intense'
+  END AS 'Mood'
+FROM movies;

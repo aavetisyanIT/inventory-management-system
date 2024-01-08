@@ -4,3 +4,9 @@ SELECT COUNT(*)
 FROM newspaper
 JOIN online
 ON newspaper.id = online.id;
+
+SELECT month, COUNT(*) AS 'subscribers'
+FROM newspaper
+CROSS JOIN months
+WHERE newspaper.start_month <= month and end_month >= month
+GROUP BY month;

@@ -28,6 +28,41 @@ class ColorTriangle extends Triangle {
 	}
 }
 
-const myColorTri = new ColorTriangle(2, 3, 'red');
+class Book {
+	constructor(title, author, year) {
+		this.title = title;
+		this.author = author;
+		this.year = year;
+	}
+}
 
-console.log(myColorTri.logColor());
+class Ebook extends Book {
+	constructor(title, author, year, fileSize) {
+		super(title, author, year);
+		this.fileSize = fileSize;
+	}
+
+	download() {
+		console.log(`${this.title} ${this.fileSize}`);
+	}
+}
+
+class ArrayUtils {
+	constructor() {
+		throw new Error('ArrayUtils cannot be instantiated.');
+	}
+	static average(numArray) {
+		if (!numArray.length) throw new Error('Array cannot be empty.');
+		return numArray.reduce((a, b) => a + b) / numArray.length;
+	}
+	static max(numArray) {
+		if (!numArray.length) throw new Error('Array cannot be empty.');
+		return numArray.reduce(
+			(largest, current) => (current > largest ? current : largest),
+			numArray[0],
+		);
+	}
+}
+
+console.log(ArrayUtils.average([1, 32, 3]));
+console.log(ArrayUtils.max([1, 32, 3]));

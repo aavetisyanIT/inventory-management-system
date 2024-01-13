@@ -1,13 +1,18 @@
-export class Node {
-	constructor(data, next = null) {
+class Node {
+	constructor(data) {
 		this.data = data;
-		this.next = next;
+		this.next = null;
 	}
 
 	setNextNode(node) {
-		this.next = node;
+		if (node instanceof Node || node === null) {
+			this.next = node;
+		} else {
+			throw new Error('Wrong data type');
+		}
 	}
 }
-const firstNode = new Node(3);
-console.log(firstNode.data);
-console.log(firstNode.next);
+
+const firstNode = new Node('I am an instance of a Node!');
+
+module.exports = Node;

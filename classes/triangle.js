@@ -17,8 +17,17 @@ class Triangle {
 	}
 }
 
-const myTry = new Triangle(2, 3);
+class ColorTriangle extends Triangle {
+	constructor(a, b, color) {
+		super(a, b);
+		this.color = color;
+	}
 
-console.log('====================================');
-console.log(myTry.getAria());
-console.log('====================================');
+	logColor() {
+		console.log(this.color);
+	}
+}
+
+const myColorTri = new ColorTriangle(2, 3, 'red');
+
+console.log(myColorTri.logColor());

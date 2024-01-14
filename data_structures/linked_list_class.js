@@ -6,10 +6,20 @@ class LinkedList {
 	}
 
 	addToHead(data) {
+		const newHead = new Node(data);
 		const currentHead = this.head;
-		this.head = new Node(data);
+		this.head = newHead;
 		if (currentHead) {
 			this.head.setNextNode(currentHead);
 		}
+	}
+
+	addToTail(data) {
+		let tail = this.head;
+		if (!tail) return this.addToHead(data);
+		while (!tail.getNextNode()) {
+			tail = tail.getNextNode();
+		}
+		tail.setNextNode(new Node(data));
 	}
 }

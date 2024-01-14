@@ -1,4 +1,4 @@
-class Node {
+export class Node {
 	constructor(data) {
 		this.data = data;
 		this.next = null;
@@ -11,8 +11,8 @@ class Node {
 			throw new Error('Wrong data type');
 		}
 	}
+
+	getNextNode() {
+		return this.next;
+	}
 }
-
-const firstNode = new Node('I am an instance of a Node!');
-
-module.exports = Node;

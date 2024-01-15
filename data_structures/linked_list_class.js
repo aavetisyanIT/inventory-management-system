@@ -1,6 +1,6 @@
-import Node from './node_class';
+import { Node } from './node_class.js';
 
-class LinkedList {
+export class LinkedList {
 	constructor() {
 		this.head = null;
 	}

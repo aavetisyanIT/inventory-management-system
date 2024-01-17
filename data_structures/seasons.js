@@ -6,11 +6,10 @@ seasons.addToHead('summer');
 seasons.addToHead('spring');
 seasons.addToHead('winter');
 
+seasons.printList();
+
 function swapNodes(list, data1, data2) {
-	if (data1 === data2) {
-		console.log('Elements are the same - no swap needed.');
-		return;
-	}
+	if (data1 === data2) return console.log('Data matches. No swap needed');
 
 	let node1 = list.head;
 	let node2 = list.head;
@@ -19,7 +18,6 @@ function swapNodes(list, data1, data2) {
 
 	while (node1) {
 		if (node1.data === data1) break;
-
 		node1Prev = node1;
 		node1 = node1.getNextNode();
 	}
@@ -30,10 +28,7 @@ function swapNodes(list, data1, data2) {
 		node2 = node2.getNextNode();
 	}
 
-	if (node1 === null || node2 === null) {
-		console.log('Swap not possible - one or more element is not in the list');
-		return;
-	}
+	if (!node1 || !node2) return console.log('Data is not found in the list');
 
 	if (!node1Prev) {
 		list.head = node2;
@@ -47,9 +42,10 @@ function swapNodes(list, data1, data2) {
 		node2Prev.setNextNode(node1);
 	}
 
-	let tempNode = node1.getNextNode();
+	const holderNode = node1.getNextNode();
 	node1.setNextNode(node2.getNextNode());
-	node2.setNextNode(tempNode);
+	node2.setNextNode(holderNode);
 }
 
 swapNodes(seasons, 'summer', 'winter');
+seasons.printList();

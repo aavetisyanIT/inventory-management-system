@@ -7,6 +7,11 @@ seasons.addToHead('spring');
 seasons.addToHead('winter');
 
 function swapNodes(list, data1, data2) {
+	if (data1 === data2) {
+		console.log('Elements are the same - no swap needed.');
+		return;
+	}
+
 	let node1 = list.head;
 	let node2 = list.head;
 	let node1Prev = null;
@@ -23,6 +28,11 @@ function swapNodes(list, data1, data2) {
 		if (node2.data === data2) break;
 		node2Prev = node2;
 		node2 = node2.getNextNode();
+	}
+
+	if (node1 === null || node2 === null) {
+		console.log('Swap not possible - one or more element is not in the list');
+		return;
 	}
 
 	if (!node1Prev) {

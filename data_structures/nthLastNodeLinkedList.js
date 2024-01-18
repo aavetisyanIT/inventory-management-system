@@ -14,3 +14,7 @@ export const nthLastNode = (linkedList, n) => {
 	}
 	return nthNode;
 };
+
+//  this problem efficiently–in O(n) time (we must iterate through the entire list once), and O(1)
+//  space complexity (we always use only three variables no matter what size the list is:
+// two pointers and a counter).

@@ -1,5 +1,5 @@
 import { LinkedList } from './linked_list_class.js';
-import { swapNodes } from './swapNodesLinkedList.js';
+import { nthLastNode } from './nthLastNodeLinkedList.js';
 
 const seasons = new LinkedList();
 seasons.addToHead('fall');
@@ -9,5 +9,4 @@ seasons.addToHead('winter');
 
 seasons.printList();
 
-swapNodes(seasons, 'summer', 'winter');
-seasons.printList();
+console.log(nthLastNode(seasons, 2));

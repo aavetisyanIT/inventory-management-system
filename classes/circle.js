@@ -1,7 +1,8 @@
 class Circle {
 	static allowedColors = new Set(['red', 'green', 'black']);
+	#radius;
 	constructor(radius, color) {
-		this.radius = radius;
+		this.#radius = radius;
 		this.setColor(color);
 	}
 
@@ -14,7 +15,7 @@ class Circle {
 	}
 
 	get diameter() {
-		return this.radius * 2;
+		return this.#radius * 2;
 	}
 
 	set color(newColor) {
@@ -23,5 +24,3 @@ class Circle {
 }
 
 const myCircle = new Circle(3, 'red');
-myCircle.color = 'red';
-console.log(myCircle);

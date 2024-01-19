@@ -1,4 +1,4 @@
-import { Node } from './doublyLinkedNode';
+import { Node } from './doublyLinkedNode.js';
 
 export class DoublyLinkedList {
 	constructor() {

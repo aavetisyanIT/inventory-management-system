@@ -30,6 +30,3 @@ export class Queue {
 		return data;
 	}
 }
-
-const restaurantOrders = new Queue();
-console.log(`restaurantOrders has ${restaurantOrders.size} nodes`);

@@ -8,4 +8,12 @@ export class Stack {
 	peek() {
 		return this.stack.head.data;
 	}
+
+	push(value) {
+		this.stack.addToHead(value);
+	}
+
+	pop() {
+		return this.stack.removeHead();
+	}
 }

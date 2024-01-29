@@ -1,16 +1,4 @@
-/**
- * Definition for singly-linked list.
- * function ListNode(val, next) {
- *     this.val = (val===undefined ? 0 : val)
- *     this.next = (next===undefined ? null : next)
- * }
- */
-/**
- * @param {ListNode} head
- * @param {number} val
- * @return {ListNode}
- */
-var removeElements = function (head, val) {
+const removeElements = function (head, val) {
 	let currentNode = head;
 	if (!head) return head;
 	if (currentNode.val === val) currentNode = currentNode.next;

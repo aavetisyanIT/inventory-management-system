@@ -1,21 +1,18 @@
-const removeElements = function (head, val) {
-	let currentNode = head;
+var removeElements = function (head, val) {
 	if (!head) return head;
-	if (currentNode.val === val) currentNode = currentNode.next;
-	let count = 0;
 
-	console.log('AAA currentNode', currentNode);
+	let newList = new ListNode();
+	let newHead = newList;
 
-	while (currentNode && currentNode.next) {
-		count++;
-		console.log('AAA count', count);
-
-		if (currentNode.next.val === val) {
-			currentNode.next = currentNode.next.next;
-		} else {
-			currentNode = currentNode.next;
+	while (head) {
+		if (head.val !== val) {
+			let newNode = new ListNode(head.val);
+			newList.next = newNode;
+			newList = newList.next;
 		}
+		head = head.next;
 	}
+	newHead = newHead.next;
 
-	return head;
+	return newHead;
 };

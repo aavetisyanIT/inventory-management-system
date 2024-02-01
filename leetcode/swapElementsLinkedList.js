@@ -1,17 +1,21 @@
-function swapNodes(list, data1, data2) {
-	if (data1 === data2) return list;
-	let currentNode = list;
+const swapNodes = function (head, k) {
+	let leftNode = head;
+	let rightNode = head;
+
+	for (let i = 1; i < k; i++) {
+		leftNode = leftNode.next;
+	}
+
+	let currentNode = leftNode;
+
 	while (currentNode.next) {
-		if (currentNode.next.data === data1) {
-			const data2Node = new Node(data2);
-			data2Node.next = currentNode.next.next;
-			currentNode.next = data2Node;
-		} else if (currentNode.next.data === data2) {
-			const data1Node = new Node(data1);
-			data1Node.next = currentNode.next.next;
-			currentNode.next = data1Node;
-		}
+		rightNode = rightNode.next;
 		currentNode = currentNode.next;
 	}
-	return list;
-}
+
+	const tempNode = leftNode.val;
+	leftNode.val = rightNode.val;
+	rightNode.val = tempNode;
+
+	return head;
+};

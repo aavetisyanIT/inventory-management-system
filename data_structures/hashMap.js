@@ -15,4 +15,9 @@ export class HashMap {
 		const arrayIndex = this.hash(key);
 		this.hashmap[arrayIndex] = value;
 	}
+
+	retrieve(key) {
+		const arrayIndex = this.hash(key);
+		return this.hashmap[arrayIndex];
+	}
 }

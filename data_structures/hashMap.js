@@ -1,6 +1,6 @@
 export class HashMap {
 	constructor(size = 0) {
-		this.hashMap = new Array(size).fill(null);
+		this.hashmap = new Array(size).fill(null);
 	}
 
 	hash(key) {
@@ -8,6 +8,6 @@ export class HashMap {
 		for (let i = 0; i < key.length; i++) {
 			hashCode += hashCode + key.charCodeAt(i);
 		}
-		return hashCode;
+		return hashCode % this.hashmap.length;
 	}
 }

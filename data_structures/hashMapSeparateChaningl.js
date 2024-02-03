@@ -14,15 +14,26 @@ export class HashMap {
 		return hashCode % this.hashmap.length;
 	}
 
-assign(key, value) {
-    const arrayIndex = this.hash(key);
-    const linkedList = new LinkedList(this.hashmap[arrayIndex]);
-    if(!linkedList.head) {
-      linkedList.addToHead({key, value});
-      return;
-    }
-  }
-}
+	assign(key, value) {
+		const arrayIndex = this.hash(key);
+		const linkedList = this.hashmap[arrayIndex];
+		if (linkedList.head === null) {
+			linkedList.addToHead({ key, value });
+			return;
+		}
+		let current = linkedList.head;
+		while (current) {
+			if (current.data.key === key) {
+				current.data = { key, value };
+				return;
+			}
+			if (!current.next) {
+				current.setNextNode(new Node({ key, value }));
+				return;
+			}
+			current = current.getNextNode();
+		}
+	}
 
 	retrieve(key) {
 		const arrayIndex = this.hash(key);

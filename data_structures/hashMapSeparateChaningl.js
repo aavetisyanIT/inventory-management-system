@@ -37,6 +37,13 @@ export class HashMap {
 
 	retrieve(key) {
 		const arrayIndex = this.hash(key);
-		return this.hashmap[arrayIndex];
+		const list = this.hashmap[arrayIndex];
+
+		let current = list.head;
+		while (current) {
+			if (current.data.key === key) return current.data.value;
+			current = current.getNextNode();
+		}
+		return null;
 	}
 }

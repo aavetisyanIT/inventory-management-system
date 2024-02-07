@@ -25,4 +25,9 @@ export class TreeNode {
 			this.children.forEach(child => child.removeChild(childToRemove));
 		}
 	}
+
+	depthFirstTraversal() {
+		console.log(this.data);
+		this.children(child => child.depthFirstTraversal());
+	}
 }

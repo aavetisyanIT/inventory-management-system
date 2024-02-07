@@ -30,4 +30,14 @@ export class TreeNode {
 		console.log(this.data);
 		this.children(child => child.depthFirstTraversal());
 	}
+
+	breadthFirstTraversal() {
+		let queue = [this];
+
+		while (queue.length) {
+			const current = queue.shift();
+			console.log(current.data);
+			queue.push(...current.children);
+		}
+	}
 }

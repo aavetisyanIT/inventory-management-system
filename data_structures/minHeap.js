@@ -21,11 +21,24 @@ export class MinHeap {
 	}
 
 	heapify() {
+		console.log('Heapify');
 		let current = 1;
 		let leftChild = getLeft(current);
 		let rightChild = getRight(current);
 
 		while (this.canSwap(current, leftChild, rightChild)) {
+			if (this.exists(leftChild) && this.exists(rightChild)) {
+				if (this.heap[leftChild] < this.heap[rightChild]) {
+					this.swap(current, leftChild);
+					current = leftChild;
+				} else {
+					this.swap(current, rightChild);
+					current = rightChild;
+				}
+			} else {
+				this.swap(current, leftChild);
+				current = leftChild;
+			}
 			leftChild = getLeft(current);
 			rightChild = getRight(current);
 		}

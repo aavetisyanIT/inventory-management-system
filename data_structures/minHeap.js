@@ -4,6 +4,22 @@ export class MinHeap {
 		this.size = 0;
 	}
 
+	popMin() {
+		if (this.size === 0) {
+			return null;
+		}
+		console.log(
+			`\n.. Swap ${this.heap[1]} with last element ${this.heap[this.size]}`,
+		);
+		this.swap(1, this.size);
+		const min = this.heap.pop();
+		this.size--;
+		console.log(`.. Removed ${min} from heap`);
+		console.log('..', this.heap);
+		this.heapify();
+		return min;
+	}
+
 	add(value) {
 		console.log(`.. adding ${value}`);
 		this.heap.push(value);

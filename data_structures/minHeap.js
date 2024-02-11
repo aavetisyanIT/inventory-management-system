@@ -20,6 +20,17 @@ export class MinHeap {
 		}
 	}
 
+	heapify() {
+		let current = 1;
+		let leftChild = getLeft(current);
+		let rightChild = getRight(current);
+
+		while (this.canSwap(current, leftChild, rightChild)) {
+			leftChild = getLeft(current);
+			rightChild = getRight(current);
+		}
+	}
+
 	swap(a, b) {
 		[this.heap[a], this.heap[b]] = [this.heap[b], this.heap[a]];
 	}

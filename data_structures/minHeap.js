@@ -8,9 +8,6 @@ export class MinHeap {
 		if (this.size === 0) {
 			return null;
 		}
-		console.log(
-			`\n.. Swap ${this.heap[1]} with last element ${this.heap[this.size]}`,
-		);
 		this.swap(1, this.size);
 		const min = this.heap.pop();
 		this.size--;

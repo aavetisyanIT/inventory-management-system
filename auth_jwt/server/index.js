@@ -13,9 +13,19 @@ app.use(cookieParser);
 
 const start = async () => {
 	try {
+		mongoose.connection.once('open', () => {
+			console.log('MongoDB connection is ready');
+		});
+		mongoose.connection.on('error', error => {
+			console.error(error);
+		});
 		await mongoose.connect(process.env.DB_URL, {
 			useNewUrlParser: true,
 			useUnifiedTopology: true,
+		});
+
+		mongoose.connection.on('connected', () => {
+			console.log('Connected to MongoDB');
 		});
 		app.listen(PORT, () => console.log(`Server is running on ${PORT}`));
 	} catch (e) {

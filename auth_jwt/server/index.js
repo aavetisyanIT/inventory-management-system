@@ -13,15 +13,15 @@ app.use(cookieParser);
 
 const start = async () => {
 	try {
+		mongoose.connect(process.env.DB_URL, {
+			useNewUrlParser: true,
+			useUnifiedTopology: true,
+		});
 		mongoose.connection.once('open', () => {
 			console.log('MongoDB connection is ready');
 		});
 		mongoose.connection.on('error', error => {
-			console.error(error);
-		});
-		await mongoose.connect(process.env.DB_URL, {
-			useNewUrlParser: true,
-			useUnifiedTopology: true,
+			console.error('Error connecting to MongoDB:', error);
 		});
 
 		mongoose.connection.on('connected', () => {

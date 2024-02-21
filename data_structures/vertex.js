@@ -1,6 +1,11 @@
 import { Edge } from './edge';
 
 export class Vertex {
+	constructor(data) {
+		this.data = data;
+		this.edges = [];
+	}
+
 	print() {
 		const edgeList =
 			this.edges.map(edge =>

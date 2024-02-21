@@ -17,3 +17,7 @@ export class Graph {
 		vertexList.forEach(vertex => vertex.print());
 	}
 }
+const trainNetwork = new Graph();
+const atlantaStation = trainNetwork.addVertex('Atlanta');
+const newYorkStation = trainNetwork.addVertex('New York');
+trainNetwork.print();

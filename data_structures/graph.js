@@ -12,6 +12,15 @@ export class Graph {
 		return newVertex;
 	}
 
+	addEdge(vertexOne, vertexTwo) {
+		if (vertexOne instanceof Vertex && vertexTwo instanceof Vertex) {
+			vertexOne.addEdge(vertexTwo);
+			vertexTwo.addEdge(vertexOne);
+			return;
+		}
+		throw new Error('Expected Vertex arguments.');
+	}
+
 	print() {
 		const vertexList = this.vertices || [];
 		vertexList.forEach(vertex => vertex.print());

@@ -31,13 +31,12 @@ export class LinkedList {
 	}
 	// optional method
 	findNodeRecursively(data, currentNode = this.head) {
-		if (currentNode === null) {
+		if (!currentNode) {
 			return null;
 		} else if (currentNode.data === data) {
 			return currentNode;
-		} else {
-			return this.findNodeRecursively(data, currentNode.next);
 		}
+		return this.findNodeRecursively(data, currentNode.next);
 	}
 
 	printList() {

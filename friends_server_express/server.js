@@ -19,4 +19,15 @@ app.get('/friends', (req, res) => {
 	res.json(friends);
 });
 
+app.get('/friends/:id', (req, res) => {
+	const friendId = Number(req.params.id);
+	const friend = friends[friendId];
+	if (!friend) {
+		return res.status(404).send({
+			error: 'Invalid friend id',
+		});
+	}
+	res.json(friend);
+});
+
 app.listen(PORT, () => console.log('Express in running on ', PORT));

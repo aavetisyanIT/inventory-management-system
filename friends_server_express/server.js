@@ -1,4 +1,8 @@
 const express = require('express');
+const {
+	getFriends,
+	getFriendById,
+} = require('./controllers/friends.controller');
 
 const PORT = 3000;
 
@@ -10,24 +14,7 @@ app.use(function (req, res, next) {
 	console.log(`${req.method} ${req.url} ${Date.now() - start}`);
 });
 
-const friends = [
-	{ id: 0, name: 'Nikola Tesla' },
-	{ id: 1, name: 'Sir Isaac Newton' },
-];
-
-app.get('/friends', (req, res) => {
-	res.json(friends);
-});
-
-app.get('/friends/:id', (req, res) => {
-	const friendId = Number(req.params.id);
-	const friend = friends[friendId];
-	if (!friend) {
-		return res.status(404).send({
-			error: 'Invalid friend id',
-		});
-	}
-	res.json(friend);
-});
+app.get('/friends', getFriends);
+app.get('/friends/:id', getFriendById);
 
 app.listen(PORT, () => console.log('Express in running on ', PORT));

@@ -7,7 +7,8 @@
 		"server": "npm run watch --prefix server",
 		"client": "npm start --prefix client",
 		"watch": "START /MIN npm run server && START /MIN npm run client",
-		"test": "echo \"Error: no test specified\" && exit 1"
+		"test": "echo \"Error: no test specified\" && exit 1",
+		"deploy": "npm run build --prefix client && npm start --prefix server"
 	},
 	"author": "",
 	"license": "ISC"

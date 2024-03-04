@@ -1,0 +1,14 @@
+{
+	"name": "launches_admin",
+	"version": "1.0.0",
+	"description": "",
+	"main": "index.js",
+	"scripts": {
+		"server": "npm run watch --prefix server",
+		"client": "npm start --prefix client",
+		"watch": "START /MIN npm run server && START /MIN npm run client",
+		"test": "echo \"Error: no test specified\" && exit 1"
+	},
+	"author": "",
+	"license": "ISC"
+}

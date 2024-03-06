@@ -4,6 +4,7 @@ const cors = require('cors');
 const morgan = require('morgan');
 
 const planetsRouter = require('./routes/planetsRouter/planets.router');
+const launchesRouter = require('./routes/launchesRouter/launches.router');
 
 const app = express();
 
@@ -17,5 +18,6 @@ app.get('/', (req, res) => {
 });
 
 app.use(planetsRouter);
+app.use(launchesRouter);
 
 module.exports = app;

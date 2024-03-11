@@ -1,7 +1,7 @@
 function bubbleSort(array) {
-	let swapped;
+	let swapped = true;
 
-	do {
+	while (swapped) {
 		swapped = false;
 		for (let i = 0; i < array.length - 1; i++) {
 			if (array[i] > array[i + 1]) {
@@ -11,7 +11,7 @@ function bubbleSort(array) {
 				swapped = true;
 			}
 		}
-	} while (swapped);
+	}
 	return array;
 }
 

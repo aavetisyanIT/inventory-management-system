@@ -9,12 +9,15 @@ Output: The integer corresponding to the Xth number in the sorted list
  */
 
 function getX(x, nums) {
+	if (x > nums.length || x < 1) {
+		return 0;
+	}
 	let swapped = true;
 
 	while (swapped) {
 		swapped = false;
 		for (let i = 0; i < nums.length - 1; i++) {
-			if (nums[i] < nums[i + 1]) {
+			if (nums[i] > nums[i + 1]) {
 				const temp = nums[i];
 				nums[i] = nums[i + 1];
 				nums[i + 1] = temp;
@@ -22,6 +25,7 @@ function getX(x, nums) {
 			}
 		}
 	}
+
 	return nums[x - 1];
 }
 

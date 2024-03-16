@@ -19,6 +19,10 @@ function getAllLaunches() {
 	return Array.from(launches.values());
 }
 
+function getLaunchById(id) {
+	return launches.get(id);
+}
+
 function addNewLaunch(launch) {
 	latestLaunchNumber++;
 	launches.set(
@@ -32,7 +36,16 @@ function addNewLaunch(launch) {
 	);
 }
 
+function abortLaunchById(id) {
+	const abortedLaunch = getLaunchById(id);
+	abortedLaunch.success = false;
+	abortedLaunch.upcoming = false;
+	return abortedLaunch;
+}
+
 module.exports = {
 	getAllLaunches,
-	addNewLaunch
+	getLaunchById,
+	addNewLaunch,
+	abortLaunchById,
 };

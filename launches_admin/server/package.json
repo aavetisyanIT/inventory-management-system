@@ -4,9 +4,10 @@
 	"description": "Mission Control API",
 	"main": "src/server.js",
 	"scripts": {
+		"test": "jest",
+		"test-watch": "jest --watch",
 		"watch": "nodemon src/server.js",
-		"start": "node src/server.js",
-		"test": "echo \"Error: no test specified\" && exit 1"
+		"start": "node src/server.js"
 	},
 	"author": "Artur A",
 	"license": "ISC",
@@ -14,5 +15,8 @@
 		"cors": "^2.8.5",
 		"csv-parse": "^5.5.5",
 		"morgan": "^1.10.0"
+	},
+	"devDependencies": {
+		"jest": "^29.7.0"
 	}
 }

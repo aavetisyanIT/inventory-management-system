@@ -24,5 +24,3 @@ const target = 58;
 const targetIndex = binarySearch(searchable, target);
 
 console.log(`The target index is ${targetIndex}.`);
-
-module.exports = { binarySearch };

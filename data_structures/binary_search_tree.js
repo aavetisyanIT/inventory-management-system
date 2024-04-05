@@ -19,4 +19,29 @@ class BinaryTree {
 			this.right = new BinaryTree(value, this.depth + 1);
 		}
 	}
+
+	getNodeByValue(value) {
+		if (this.value === value) return this;
+		if (this.left && value < this.value) return this.left.getNodeByValue(value);
+		if (this.right && value > this.value)
+			return this.right.getNodeByValue(value);
+		return null;
+	}
 }
+
+const bt = new BinaryTree(100);
+
+// insert values to the BinaryTree
+bt.insert(50);
+bt.insert(125);
+bt.insert(75);
+bt.insert(25);
+bt.insert(55);
+
+// search for value 75 in BinaryTree
+let node = bt.getNodeByValue(75);
+console.log(node);
+
+// search for a non-existent value in BinaryTree
+node = bt.getNodeByValue(55);
+console.log(node);

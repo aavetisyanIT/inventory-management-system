@@ -23,6 +23,12 @@ class BinaryTree {
 			return this.right.getNodeByValue(value);
 		return null;
 	}
+
+	depthFirstTraversal() {
+		if (this.left) this.left.depthFirstTraversal();
+		console.log('Value', this.value);
+		if (this.right) this.right.depthFirstTraversal();
+	}
 }
 
 const bt = new BinaryTree(100);
@@ -34,12 +40,4 @@ bt.insert(75);
 bt.insert(25);
 bt.insert(55);
 
-// console.log(bt);
-
-// search for value 75 in BinaryTree
-let node = bt.getNodeByValue(75);
-console.log(node);
-
-// search for a non-existent value in BinaryTree
-node = bt.getNodeByValue(55);
-console.log(node);
+bt.depthFirstTraversal();

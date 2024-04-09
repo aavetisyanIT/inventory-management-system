@@ -29,6 +29,26 @@ class BinaryTree {
 		console.log('Value', this.value);
 		if (this.right) this.right.depthFirstTraversal();
 	}
+
+	breadthFirstTraversal() {
+		const result = [];
+		const queue = [this]; // Initialize queue with the root node
+
+		while (queue.length > 0) {
+			const currentNode = queue.shift(); // Dequeue the first node in the queue
+			result.push(currentNode.value); // Process the current node
+
+			// Enqueue the left and right children of the current node, if they exist
+			if (currentNode.left) {
+				queue.push(currentNode.left);
+			}
+			if (currentNode.right) {
+				queue.push(currentNode.right);
+			}
+		}
+
+		return result;
+	}
 }
 
 const bt = new BinaryTree(100);
@@ -41,3 +61,4 @@ bt.insert(25);
 bt.insert(55);
 
 bt.depthFirstTraversal();
+console.log(bt.breadthFirstTraversal());

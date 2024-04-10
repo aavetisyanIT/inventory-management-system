@@ -32,19 +32,13 @@ class BinaryTree {
 
 	breadthFirstTraversal() {
 		const result = [];
-		const queue = [this]; // Initialize queue with the root node
+		const queue = [this];
 
-		while (queue.length > 0) {
-			const currentNode = queue.shift(); // Dequeue the first node in the queue
-			result.push(currentNode.value); // Process the current node
-
-			// Enqueue the left and right children of the current node, if they exist
-			if (currentNode.left) {
-				queue.push(currentNode.left);
-			}
-			if (currentNode.right) {
-				queue.push(currentNode.right);
-			}
+		while (queue.length) {
+			const currentNode = queue.shift();
+			result.push(currentNode.value);
+			if (currentNode.left) queue.push(currentNode.left);
+			if (currentNode.right) queue.push(currentNode.right);
 		}
 
 		return result;
@@ -59,6 +53,6 @@ bt.insert(125);
 bt.insert(75);
 bt.insert(25);
 bt.insert(55);
+console.log(bt);
 
-bt.depthFirstTraversal();
 console.log(bt.breadthFirstTraversal());

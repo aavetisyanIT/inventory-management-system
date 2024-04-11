@@ -1,3 +1,5 @@
+const LaunchModel = require('./launches.mongo.model');
+
 const launches = new Map();
 
 let latestLaunchNumber = 100;
@@ -14,6 +16,13 @@ const launch = {
 };
 
 launches.set(launch.flightNumber, launch);
+
+async function addNewLaunch(launch) {
+	console.log('AAA addNewLaunch');
+	await LaunchModel.updateOne({ flightNumber: launch.flightNumber }, launch, {
+		upsert: true,
+	});
+}
 
 function getAllLaunches() {
 	return Array.from(launches.values());

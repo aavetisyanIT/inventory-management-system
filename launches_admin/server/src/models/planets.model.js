@@ -39,7 +39,7 @@ function loadPlanets() {
 
 async function addPlanet(planet) {
 	try {
-		const id = await PlanetModel.updateOne(
+		await PlanetModel.updateOne(
 			{ keplerName: planet.kepler_name },
 			{
 				keplerName: planet.kepler_name,
@@ -54,7 +54,7 @@ async function addPlanet(planet) {
 }
 
 async function getAllPlanets() {
-	return await PlanetModel.find({});
+	return await PlanetModel.find({}, { _id: 0, __v: 0 });
 }
 
 module.exports = {

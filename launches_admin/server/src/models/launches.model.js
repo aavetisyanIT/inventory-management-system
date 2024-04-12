@@ -1,4 +1,5 @@
 const LaunchModel = require('./launches.mongo.model');
+const PlanetModel = require('./planets.mongo.model');
 
 const launches = new Map();
 
@@ -9,7 +10,7 @@ const launch = {
 	mission: 'Explore Space X',
 	rocket: 'Explorer IS1',
 	launchDate: new Date('December 20, 2040'),
-	target: ' Kepler-1652 b',
+	target: 'Kepler-1652 b',
 	customer: ['NASA'],
 	upcoming: true,
 	success: true,
@@ -18,6 +19,9 @@ const launch = {
 launches.set(launch.flightNumber, launch);
 
 async function saveLaunch(launch) {
+	const targetPlanet = await PlanetModel.findOne({ keplerName: launch.target });
+	if (!targetPlanet) throw new Error('No planet found!');
+
 	await LaunchModel.updateOne({ flightNumber: launch.flightNumber }, launch, {
 		upsert: true,
 	});

@@ -17,15 +17,14 @@ const launch = {
 
 launches.set(launch.flightNumber, launch);
 
-async function addNewLaunch(launch) {
-	console.log('AAA addNewLaunch');
+async function saveLaunch(launch) {
 	await LaunchModel.updateOne({ flightNumber: launch.flightNumber }, launch, {
 		upsert: true,
 	});
 }
 
-function getAllLaunches() {
-	return Array.from(launches.values());
+async function getAllLaunches() {
+	return await LaunchModel.find({}, { _id: 0, __v: 0 });
 }
 
 function getLaunchById(id) {
@@ -44,6 +43,10 @@ function addNewLaunch(launch) {
 		}),
 	);
 }
+
+(async () => {
+	saveLaunch(launch);
+})();
 
 function abortLaunchById(id) {
 	const abortedLaunch = getLaunchById(id);

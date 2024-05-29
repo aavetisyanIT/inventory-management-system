@@ -3,7 +3,7 @@ const PlanetModel = require('./planets.mongo.model');
 
 const launches = new Map();
 
-let latestLaunchNumber = 100;
+const DEFAULT_FLIGHT_NUMBER = 100;
 
 const launch = {
 	flightNumber: 100,
@@ -25,6 +25,12 @@ async function saveLaunch(launch) {
 	await LaunchModel.updateOne({ flightNumber: launch.flightNumber }, launch, {
 		upsert: true,
 	});
+}
+
+async function getLatestFlightNumber() {
+	const latestFlight = await LaunchModel.findOne().sort('-flightNumber');
+	if (!latestFlight) return DEFAULT_FLIGHT_NUMBER;
+	return latestFlight.flightNumber;
 }
 
 async function getAllLaunches() {

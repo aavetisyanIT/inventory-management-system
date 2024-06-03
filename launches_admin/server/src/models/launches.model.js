@@ -22,7 +22,7 @@ async function saveLaunch(launch) {
 	const targetPlanet = await PlanetModel.findOne({ keplerName: launch.target });
 	if (!targetPlanet) throw new Error('No planet found!');
 
-	await LaunchModel.updateOne({ flightNumber: launch.flightNumber }, launch, {
+	await LaunchModel.findOneAndUpdate({ flightNumber: launch.flightNumber }, launch, {
 		upsert: true,
 	});
 }

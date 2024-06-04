@@ -12,6 +12,9 @@
 	},
 	"author": "Artur A",
 	"license": "ISC",
+	"jest": {
+		"testEnvironment": "node"
+	},
 	"dependencies": {
 		"cors": "^2.8.5",
 		"csv-parse": "^5.5.5",

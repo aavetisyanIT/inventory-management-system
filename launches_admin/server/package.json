@@ -4,7 +4,7 @@
 	"description": "Mission Control API",
 	"main": "src/server.js",
 	"scripts": {
-		"test": "jest",
+		"test": "jest --detectOpenHandles",
 		"test-watch": "jest --watch",
 		"watch": "nodemon --env-file=.env src/server.js",
 		"start": "node --env-file=.env src/server.js",

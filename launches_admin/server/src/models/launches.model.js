@@ -1,10 +1,7 @@
 const LaunchModel = require('./launches.mongo.model');
 const PlanetModel = require('./planets.mongo.model');
 
-const launches = new Map();
-
 const DEFAULT_FLIGHT_NUMBER = 100;
-
 const launch = {
 	flightNumber: 100,
 	mission: 'Explore Space X',
@@ -16,15 +13,17 @@ const launch = {
 	success: true,
 };
 
-launches.set(launch.flightNumber, launch);
-
 async function saveLaunch(launch) {
 	const targetPlanet = await PlanetModel.findOne({ keplerName: launch.target });
 	if (!targetPlanet) throw new Error('No planet found!');
 
-	await LaunchModel.findOneAndUpdate({ flightNumber: launch.flightNumber }, launch, {
-		upsert: true,
-	});
+	await LaunchModel.findOneAndUpdate(
+		{ flightNumber: launch.flightNumber },
+		launch,
+		{
+			upsert: true,
+		},
+	);
 }
 
 async function getLatestFlightNumber() {
@@ -37,8 +36,8 @@ async function getAllLaunches() {
 	return await LaunchModel.find({}, { _id: 0, __v: 0 });
 }
 
-function getLaunchById(id) {
-	return launches.get(id);
+async function getLaunchById(id) {
+	return await LaunchModel.findOne({ flightNumber: id });
 }
 
 async function scheduleNewLaunch(launch) {
@@ -57,10 +56,16 @@ async function scheduleNewLaunch(launch) {
 	saveLaunch(launch);
 })();
 
-function abortLaunchById(id) {
-	const abortedLaunch = getLaunchById(id);
-	abortedLaunch.success = false;
-	abortedLaunch.upcoming = false;
+async function abortLaunchById(id) {
+	const abortedLaunch = await getLaunchById(id);
+	if (!abortedLaunch) return false;
+	await LaunchModel.updateOne(
+		{ flightNumber: id },
+		{
+			success: false,
+			upcoming: false,
+		},
+	);
 	return abortedLaunch;
 }
 

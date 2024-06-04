@@ -32,12 +32,12 @@ async function httpAddNewLaunch(req, res) {
 	return res.status(201).json(launch);
 }
 
-function httpDeleteLaunch(req, res) {
+async function httpDeleteLaunch(req, res) {
 	const { launchId } = req.params;
 
-	const abortedLaunch = getLaunchById(Number(launchId));
+	const abortedLaunch = await getLaunchById(Number(launchId));
 	if (abortedLaunch) {
-		abortLaunchById(Number(launchId));
+		await abortLaunchById(Number(launchId));
 		return res.status(200).json(abortedLaunch);
 	}
 	res.status(400).json({

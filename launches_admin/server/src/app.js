@@ -3,8 +3,7 @@ const express = require('express');
 const cors = require('cors');
 const morgan = require('morgan');
 
-const planetsRouter = require('./routes/planetsRouter/planets.router');
-const launchesRouter = require('./routes/launchesRouter/launches.router');
+const api = require('./routes/api');
 
 const app = express();
 
@@ -17,7 +16,6 @@ app.all('/', (req, res) => {
 	res.sendFile(path.join(__dirname, '..', 'public', 'index.html'));
 });
 
-app.use('/planets', planetsRouter);
-app.use('/launches', launchesRouter);
+app.use('/v1', api);
 
 module.exports = app;

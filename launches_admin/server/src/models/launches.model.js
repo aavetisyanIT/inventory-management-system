@@ -10,17 +10,22 @@ const launch = {
 	rocket: 'Explorer IS1',
 	launchDate: new Date('December 20, 2040'),
 	target: 'Kepler-1652 b',
-	customer: ['NASA'],
+	customers: ['NASA'],
 	upcoming: true,
 	success: true,
 };
 
 const SPACE_X_URL = 'https://api.spacexdata.com/v4/launches/query';
 
-async function loadLaunchesData() {
+async function findLaunch(filter) {
+	return await LaunchModel.findOne(filter);
+}
+
+async function populateLaunches() {
 	const response = await axios.post(SPACE_X_URL, {
 		query: {},
 		options: {
+			pagination: false,
 			populate: [
 				{
 					path: 'rocket',
@@ -51,11 +56,24 @@ async function loadLaunchesData() {
 			rocket: launchDoc['rocket']['name'],
 			launchDate: launchDoc['date_local'],
 			target: 'N/A',
-			customer: customers,
+			customers,
 			upcoming: launchDoc['upcoming'],
 			success: launchDoc['success'],
 		};
 	}
+}
+
+async function loadLaunchesData() {
+	const firstLaunch = await findLaunch({
+		flightNumber: 1,
+		rocket: 'Falcon 1',
+		mission: 'FalconSat',
+	});
+	if (firstLaunch) {
+		console.log('Launches data is already populated!');
+		return;
+	}
+	await populateLaunches();
 }
 
 async function saveLaunch(launch) {
@@ -82,7 +100,7 @@ async function getAllLaunches() {
 }
 
 async function getLaunchById(id) {
-	return await LaunchModel.findOne({ flightNumber: id });
+	return await findLaunch({ flightNumber: id });
 }
 
 async function scheduleNewLaunch(launch) {
@@ -90,7 +108,7 @@ async function scheduleNewLaunch(launch) {
 	const newLaunch = Object.assign(launch, {
 		upcoming: true,
 		success: true,
-		customer: ['ZTM', 'NASA'],
+		customers: ['ZTM', 'NASA'],
 		flightNumber: newFlightNumber,
 	});
 

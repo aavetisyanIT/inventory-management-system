@@ -1,3 +1,5 @@
+const axios = require('axios');
+
 const LaunchModel = require('./launches.mongo.model');
 const PlanetModel = require('./planets.mongo.model');
 
@@ -12,6 +14,49 @@ const launch = {
 	upcoming: true,
 	success: true,
 };
+
+const SPACE_X_URL = 'https://api.spacexdata.com/v4/launches/query';
+
+async function loadLaunchesData() {
+	const response = await axios.post(SPACE_X_URL, {
+		query: {},
+		options: {
+			populate: [
+				{
+					path: 'rocket',
+					select: {
+						name: 1,
+					},
+				},
+				{
+					path: 'payloads',
+					select: {
+						customers: 1,
+					},
+				},
+			],
+		},
+	});
+
+	const launchDocs = response.data.docs;
+	for (let launchDoc of launchDocs) {
+		const customers = launchDoc['payloads'].flatMap(customer => {
+			return customer.customers;
+		});
+		console.log('AAA customers', customers);
+
+		const launch = {
+			flightNumber: launchDoc['flight_number'],
+			mission: launchDoc['name'],
+			rocket: launchDoc['rocket']['name'],
+			launchDate: launchDoc['date_local'],
+			target: 'N/A',
+			customer: customers,
+			upcoming: launchDoc['upcoming'],
+			success: launchDoc['success'],
+		};
+	}
+}
 
 async function saveLaunch(launch) {
 	const targetPlanet = await PlanetModel.findOne({ keplerName: launch.target });
@@ -70,6 +115,7 @@ async function abortLaunchById(id) {
 }
 
 module.exports = {
+	loadLaunchesData,
 	getAllLaunches,
 	getLaunchById,
 	scheduleNewLaunch,

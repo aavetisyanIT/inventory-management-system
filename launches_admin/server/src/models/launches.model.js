@@ -43,12 +43,17 @@ async function populateLaunches() {
 		},
 	});
 
+	if (response.status !== 200) {
+		console.log('Error getting launches data');
+		console.log(response.status);
+		throw new Error('Error getting launches data');
+	}
+
 	const launchDocs = response.data.docs;
 	for (let launchDoc of launchDocs) {
 		const customers = launchDoc['payloads'].flatMap(customer => {
 			return customer.customers;
 		});
-		console.log('AAA customers', customers);
 
 		const launch = {
 			flightNumber: launchDoc['flight_number'],
@@ -60,6 +65,8 @@ async function populateLaunches() {
 			upcoming: launchDoc['upcoming'],
 			success: launchDoc['success'],
 		};
+
+		await saveLaunch(launch);
 	}
 }
 
@@ -77,9 +84,6 @@ async function loadLaunchesData() {
 }
 
 async function saveLaunch(launch) {
-	const targetPlanet = await PlanetModel.findOne({ keplerName: launch.target });
-	if (!targetPlanet) throw new Error('No planet found!');
-
 	await LaunchModel.findOneAndUpdate(
 		{ flightNumber: launch.flightNumber },
 		launch,
@@ -104,6 +108,10 @@ async function getLaunchById(id) {
 }
 
 async function scheduleNewLaunch(launch) {
+	const targetPlanet = await PlanetModel.findOne({
+		keplerName: launch.target,
+	});
+	if (!targetPlanet) throw new Error('No matching planet found!');
 	const newFlightNumber = (await getLatestFlightNumber()) + 1;
 	const newLaunch = Object.assign(launch, {
 		upcoming: true,

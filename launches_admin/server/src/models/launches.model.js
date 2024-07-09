@@ -99,8 +99,8 @@ async function getLatestFlightNumber() {
 	return latestFlight.flightNumber;
 }
 
-async function getAllLaunches() {
-	return await LaunchModel.find({}, { _id: 0, __v: 0 });
+async function getAllLaunches(skip, limit) {
+	return await LaunchModel.find({}, { _id: 0, __v: 0 }).skip(skip).limit(limit);
 }
 
 async function getLaunchById(id) {

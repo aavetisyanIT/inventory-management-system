@@ -4,16 +4,6 @@ const LaunchModel = require('./launches.mongo.model');
 const PlanetModel = require('./planets.mongo.model');
 
 const DEFAULT_FLIGHT_NUMBER = 100;
-const launch = {
-	flightNumber: 100,
-	mission: 'Explore Space X',
-	rocket: 'Explorer IS1',
-	launchDate: new Date('December 20, 2040'),
-	target: 'Kepler-1652 b',
-	customers: ['NASA'],
-	upcoming: true,
-	success: true,
-};
 
 const SPACE_X_URL = 'https://api.spacexdata.com/v4/launches/query';
 
@@ -122,10 +112,6 @@ async function scheduleNewLaunch(launch) {
 
 	await saveLaunch(newLaunch);
 }
-
-(async () => {
-	saveLaunch(launch);
-})();
 
 async function abortLaunchById(id) {
 	const abortedLaunch = await getLaunchById(id);

@@ -2,12 +2,13 @@ const express = require('express');
 const https = require('https');
 const path = require('path');
 const fs = require('fs');
+const helmet = require('helmet');
 
 const privateKey = fs.readFileSync(__dirname + '/../key.pem');
 const certificate = fs.readFileSync(__dirname + '/../cert.pem');
 
 const app = express();
-
+app.use(helmet());
 const credentials = { key: privateKey, cert: certificate };
 
 app.get('/', function (req, res) {

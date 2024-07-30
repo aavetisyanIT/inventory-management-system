@@ -3,6 +3,8 @@ const https = require('https');
 const path = require('path');
 const fs = require('fs');
 const helmet = require('helmet');
+const passport = require('passport');
+const Strategy = require('passport-google-oauth20').Strategy;
 
 require('dotenv').config();
 
@@ -14,8 +16,23 @@ const config = {
 	SECRET_KEY: process.env.SECRET_KEY,
 };
 
+passport.use(
+	new Strategy(
+		{
+			clientID: config.SECRET_ID,
+			clientSecret: config.SECRET_KEY,
+			callbackURL: '/auth/google/callback',
+		},
+		function (accessToken, refreshToken, profile, cb) {
+			return done(null, profile);
+		},
+	),
+);
+
 const app = express();
 app.use(helmet());
+app.use(passport.initialize());
+
 const credentials = { key: privateKey, cert: certificate };
 
 function checkIsLoggedIn(req, res, next) {

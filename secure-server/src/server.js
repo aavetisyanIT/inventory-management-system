@@ -23,7 +23,8 @@ passport.use(
 			clientSecret: config.SECRET_KEY,
 			callbackURL: '/auth/google/callback',
 		},
-		function (accessToken, refreshToken, profile, cb) {
+		function (accessToken, refreshToken, profile, done) {
+			console.log('Auth profile', profile);
 			return done(null, profile);
 		},
 	),
@@ -45,12 +46,34 @@ function checkIsLoggedIn(req, res, next) {
 	next();
 }
 
-app.get('/auth/google', (req, res) => {});
-app.get('/auth/google/callback', (req, res) => {});
+app.get(
+	'/auth/google',
+	passport.authenticate('google', {
+		scope: ['email', 'profile'],
+	}),
+	(req, res) => {
+		console.log('AAA /auth/google');
+	},
+);
+app.get(
+	'/auth/google/callback',
+	passport.authenticate('google', {
+		failureRedirect: '/failure',
+		successRedirect: '/',
+		session: false,
+	}),
+	(req, res) => {
+		console.log('AAA /auth/google/callback');
+	},
+);
 app.get('/auth/logout', (req, res) => {});
 
 app.get('/secret', function (req, res) {
 	res.status(200).send('Your secret is 43!');
+});
+
+app.get('/failure', (req, res) => {
+	console.log('AAA /failure');
 });
 
 app.get('/', function (req, res) {
@@ -59,4 +82,4 @@ app.get('/', function (req, res) {
 
 const server = https.createServer(credentials, app);
 
-server.listen(8080, () => console.log('App is serving on port 8080'));
+server.listen(3000, () => console.log('App is serving on port 3000'));

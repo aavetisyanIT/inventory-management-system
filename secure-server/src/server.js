@@ -4,8 +4,15 @@ const path = require('path');
 const fs = require('fs');
 const helmet = require('helmet');
 
+require('dotenv').config();
+
 const privateKey = fs.readFileSync(__dirname + '/../key.pem');
 const certificate = fs.readFileSync(__dirname + '/../cert.pem');
+
+const config = {
+	SECRET_ID: process.env.SECRET_ID,
+	SECRET_KEY: process.env.SECRET_KEY,
+};
 
 const app = express();
 app.use(helmet());

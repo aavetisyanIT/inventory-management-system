@@ -13,7 +13,6 @@ app.set('view engine', 'ejs');
 
 // database connection
 const dbURI = process.env.DB_CONNECTION_STRING;
-console.log('AAA', dbURI);
 mongoose
 	.connect(dbURI, {
 		useNewUrlParser: true,

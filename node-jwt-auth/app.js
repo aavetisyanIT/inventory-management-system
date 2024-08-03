@@ -1,6 +1,8 @@
 const express = require('express');
 const mongoose = require('mongoose');
 
+require('dotenv').config();
+
 const app = express();
 
 // middleware
@@ -10,8 +12,8 @@ app.use(express.static('public'));
 app.set('view engine', 'ejs');
 
 // database connection
-const dbURI =
-	'mongodb+srv://shaun:test1234@cluster0.del96.mongodb.net/node-auth';
+const dbURI = process.env.DB_CONNECTION_STRING;
+console.log('AAA', dbURI);
 mongoose
 	.connect(dbURI, {
 		useNewUrlParser: true,

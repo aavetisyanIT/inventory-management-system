@@ -1,6 +1,8 @@
 const express = require('express');
 const mongoose = require('mongoose');
 
+const authRouter = require('./routes/authRouter');
+
 require('dotenv').config();
 
 const app = express();
@@ -23,5 +25,6 @@ mongoose
 	.catch(err => console.log(err));
 
 // routes
+app.use('/', authRouter);
 app.get('/', (req, res) => res.render('home'));
 app.get('/smoothies', (req, res) => res.render('smoothies'));

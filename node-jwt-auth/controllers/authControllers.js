@@ -1,11 +1,16 @@
 const Users = require('../models/Users');
-const util = require('util');
 
 function handleErrors(err) {
 	const errors = { email: '', password: '' };
+	if (err.code) {
+		errors.email = 'This email already registered';
+		return errors;
+	}
 	if (err.message.includes('user validation failed')) {
-		console.log(err);
-		console.log(util.inspect(err, false, null, true /* enable colors */));
+		Object.values(err.errors).forEach(errObj => {
+			const { properties } = errObj;
+			errors[properties.path] = properties.message;
+		});
 	}
 
 	return errors;
@@ -29,6 +34,6 @@ module.exports.signup_post = async (req, res) => {
 		res.status(201).json(newUser);
 	} catch (err) {
 		const errors = handleErrors(err);
-		res.status(404).json(errors);
+		res.status(404).json({ errors });
 	}
 };

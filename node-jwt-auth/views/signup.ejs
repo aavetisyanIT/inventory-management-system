@@ -15,12 +15,11 @@
 
 <script>
   const form = document.querySelector("form");
+  const emailError = document.querySelector(".email.error");
+  const passwordError = document.querySelector(".password.error");
 
   form.addEventListener("submit", async e => {
     e.preventDefault();
-
-    const emailError = document.querySelector(".email.error");
-    const passwordError = document.querySelector(".password.error");
 
     emailError.textContent = "";
     passwordError.textContent = "";

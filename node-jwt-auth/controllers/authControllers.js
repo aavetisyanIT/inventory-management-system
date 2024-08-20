@@ -4,7 +4,16 @@ const jwt = require("jsonwebtoken");
 require("dotenv").config();
 
 function handleErrors(err) {
+  console.log("AAA handleErrors err:", err);
   const errors = { email: "", password: "" };
+
+  if (err.message === "invalid email") {
+    errors.email = "that is invalid email";
+  }
+  if (err.message === "invalid password") {
+    errors.password = "that is invalid password";
+  }
+
   if (err.code === 11000) {
     errors.email = "This email already registered";
     return errors;
@@ -29,21 +38,24 @@ module.exports.login_get = (req, res) => {
 };
 
 module.exports.login_post = async (req, res) => {
-  const { body } = req;
-  const { email, password } = body;
+  const { email, password } = req.body;
 
   try {
-    await Users.login(email, password);
-
-    res.json("Login");
+    const user = await Users.login(email, password);
+    const token = createToken(user._id);
+    res.cookie("jwt", token, { httpOnly: true, maxAge: maxAge * 1000 });
+    res.status(201).json({ user: user._id });
   } catch (err) {
-    res.status(400).json({});
+    console.error("AAA", err.message);
+    const errors = handleErrors(err);
+    res.status(400).json({ errors });
   }
 };
 
 module.exports.signup_get = (req, res) => {
   res.render("signup");
 };
+
 module.exports.signup_post = async (req, res) => {
   const { email, password } = req.body;
   try {

@@ -3,6 +3,7 @@ const mongoose = require("mongoose");
 const cookieParser = require("cookie-parser");
 
 const authRouter = require("./routes/authRouter");
+const { requireAuth } = require("./middleware/authMiddleware");
 
 require("dotenv").config();
 
@@ -25,5 +26,5 @@ mongoose
 
 // routes
 app.get("/", (req, res) => res.render("home"));
-app.get("/smoothies", (req, res) => res.render("smoothies"));
+app.get("/smoothies", requireAuth, (req, res) => res.render("smoothies"));
 app.use(authRouter);

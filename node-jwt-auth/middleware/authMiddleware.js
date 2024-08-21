@@ -1,21 +1,46 @@
-const jwt = require("jsonwebtoken");
+const { verify } = require("jsonwebtoken");
 require("dotenv").config();
 
-async function requireAuth(req, res, next) {
+const Users = require("../models/Users");
+
+function requireAuth(req, res, next) {
   const token = req.cookies.jwt;
 
   if (!token) {
     return res.redirect("/login");
   }
 
-  jwt.verify(token, process.env.JWT_SECRET, (err, decodedToken) => {
+  verify(token, process.env.JWT_SECRET, err => {
     if (err) {
-      console.log("AAA token error: ", err);
       return res.redirect("/login");
     }
-    console.log("AAA decodedToken", decodedToken);
     next();
   });
 }
 
-module.exports = { requireAuth };
+const populateUser = (req, res, next) => {
+  const token = req.cookies.jwt;
+
+  if (!token) {
+    res.locals.user = null;
+    return next();
+  }
+
+  verify(token, process.env.JWT_SECRET, async (err, decodedToken) => {
+    if (err) {
+      res.locals.user = null;
+      return next();
+    }
+    try {
+      const loggedInUser = await Users.findById(decodedToken.id);
+      res.locals.user = loggedInUser;
+      return next();
+    } catch (err) {
+      console.log("Error finding a user", err);
+      res.locals.user = null;
+      return next();
+    }
+  });
+};
+
+module.exports = { requireAuth, populateUser };

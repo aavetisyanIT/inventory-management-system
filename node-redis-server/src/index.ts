@@ -33,4 +33,22 @@ app.get("/photos", async (req, res) => {
   }
 });
 
+app.get("/photos/:id", async (req, res) => {
+  try {
+    const { data } = await axios.get<PhotoResItem>(
+      `https://jsonplaceholder.typicode.com/photos/${req.params.id}`,
+    );
+
+    res.status(200).json(data);
+  } catch (err) {
+    if (axios.isAxiosError(err)) {
+      res.status(err.response?.status || 500).json({ error: err.message });
+    } else {
+      // Generic error handling
+      console.error("Unknown error:", err);
+      res.status(500).json({ error: "An unexpected error occurred" });
+    }
+  }
+});
+
 app.listen(port, () => console.log(`Server is listening on port: ${port}`));

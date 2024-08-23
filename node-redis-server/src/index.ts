@@ -20,21 +20,42 @@ type PhotoResItem = {
     .on("error", err => console.log("Redis Client Error", err))
     .connect();
 
+  function getOrSetCache(
+    key: string,
+    callback: () => Promise<PhotoResItem | PhotoResItem[]>,
+  ) {
+    return new Promise(async (resolve, reject) => {
+      try {
+        const cachedData = await redisClient.get(key);
+        if (cachedData) {
+          return resolve(JSON.parse(cachedData));
+        }
+        const fetchedData = await callback();
+        await redisClient.set(key, JSON.stringify(fetchedData));
+        resolve(fetchedData);
+      } catch (error) {
+        reject(error);
+      }
+    });
+  }
+
   app.get("/photos", async (req, res) => {
     const albumId = req.query.albumId;
     try {
-      const photos = await redisClient.get(`photos$album_${albumId}`);
-      if (!photos) {
-        const { data } = await axios.get<PhotoResItem[]>(
-          "https://jsonplaceholder.typicode.com/photos",
-          {
-            params: { albumId },
-          },
-        );
-        await redisClient.set(`photos$album_${albumId}`, JSON.stringify(data));
-        return res.status(200).json(data);
-      }
-      return res.status(200).json(JSON.parse(photos));
+      const photos = await getOrSetCache(
+        `photos$album_${albumId}`,
+        async function () {
+          const { data } = await axios.get<PhotoResItem[]>(
+            "https://jsonplaceholder.typicode.com/photos",
+            {
+              params: { albumId },
+            },
+          );
+          return data;
+        },
+      );
+
+      return res.status(200).json(photos);
     } catch (err) {
       if (axios.isAxiosError(err)) {
         res.status(err.response?.status || 500).json({ error: err.message });
@@ -48,11 +69,17 @@ type PhotoResItem = {
 
   app.get("/photos/:id", async (req, res) => {
     try {
-      const { data } = await axios.get<PhotoResItem>(
-        `https://jsonplaceholder.typicode.com/photos/${req.params.id}`,
+      const photos = await getOrSetCache(
+        `photo_id:${req.params.id}`,
+        async function () {
+          const { data } = await axios.get<PhotoResItem>(
+            `https://jsonplaceholder.typicode.com/photos/${req.params.id}`,
+          );
+          return data;
+        },
       );
 
-      res.status(200).json(data);
+      res.status(200).json(photos);
     } catch (err) {
       if (axios.isAxiosError(err)) {
         res.status(err.response?.status || 500).json({ error: err.message });

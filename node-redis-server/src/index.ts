@@ -23,7 +23,7 @@ type PhotoResItem = {
   app.get("/photos", async (req, res) => {
     const albumId = req.query.albumId;
     try {
-      const photos = await redisClient.get("photos");
+      const photos = await redisClient.get(`photos$album_${albumId}`);
       if (!photos) {
         const { data } = await axios.get<PhotoResItem[]>(
           "https://jsonplaceholder.typicode.com/photos",
@@ -31,7 +31,7 @@ type PhotoResItem = {
             params: { albumId },
           },
         );
-        await redisClient.set("photos", JSON.stringify(data));
+        await redisClient.set(`photos$album_${albumId}`, JSON.stringify(data));
         return res.status(200).json(data);
       }
       return res.status(200).json(JSON.parse(photos));

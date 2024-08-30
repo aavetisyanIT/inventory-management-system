@@ -1,6 +1,11 @@
 import express, { Express, Request, Response, NextFunction } from "express";
 import path from "path";
 
+import * as IMAP from "./IMAP";
+import * as SMTP from "./SMTP";
+import * as Contacts from "./Contacts";
+import { IContact } from "./Contacts";
+
 const app: Express = express();
 
 app.use(express.json());

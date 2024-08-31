@@ -5,6 +5,7 @@ import * as IMAP from "./IMAP";
 import * as SMTP from "./SMTP";
 import * as Contacts from "./Contacts";
 import { IContact } from "./Contacts";
+import { serverInfo } from "./ServerInfo";
 
 const app: Express = express();
 

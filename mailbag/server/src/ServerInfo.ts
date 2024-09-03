@@ -1,7 +1,7 @@
 import path from "path";
 import fs from "fs";
 
-interface IServerInfo {
+export interface IServerInfo {
   smtp: {
     host: string;
     port: number;

@@ -18,7 +18,6 @@ app.use((req: Request, res: Response, next: NextFunction) => {
     "Access-Control-Allow-Headers",
     "Origin,X-Requested-With,Content-Type,Accept",
   );
-  next();
 });
 
 app.listen(8080);

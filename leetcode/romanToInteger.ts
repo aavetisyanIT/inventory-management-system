@@ -9,16 +9,16 @@ function romanToInt(s: string): number {
     M: 1000,
   };
 
-  const stringSplit = s.split("");
+  const romanNumberArr = s.split("");
   let result = 0;
 
-  for (let i = stringSplit.length - 1; i >= 0; i--) {
-    if (i === stringSplit.length - 1) {
-      result += map[stringSplit[i]];
+  for (let i = romanNumberArr.length - 1; i >= 0; i--) {
+    if (i === romanNumberArr.length - 1) {
+      result += map[romanNumberArr[i]];
     } else {
-      const currentRomanNum = stringSplit[i];
+      const currentRomanNum = romanNumberArr[i];
       const currentNum = map[currentRomanNum];
-      const nextRomanNum = stringSplit[i + 1];
+      const nextRomanNum = romanNumberArr[i + 1];
       const nextNum = map[nextRomanNum];
       if (currentNum < nextNum) {
         result -= currentNum;
@@ -27,5 +27,6 @@ function romanToInt(s: string): number {
       }
     }
   }
+
   return result;
 }

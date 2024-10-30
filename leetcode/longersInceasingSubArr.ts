@@ -1,28 +1,14 @@
 function findLengthOfLCIS(nums: number[]): number {
-  let lowPointer = 0;
-  let highPointer = 1;
-  let lowStart = 0;
-  let maxLength = 0;
+  let counter = 1;
+  let maxLength = 1;
 
-  if (!nums.length) return 0;
-  if (nums.length === 2) {
-    if (nums[0] < nums[1]) return 2;
-    return 1;
-  }
-
-  while (highPointer < nums.length) {
-    if (nums[highPointer] > nums[lowPointer]) {
-      highPointer++;
-      lowPointer++;
+  for (let i = 0; i < nums.length; i++) {
+    if (nums[i] < nums[i + 1]) {
+      counter++;
     } else {
-      if (highPointer - lowStart > maxLength) {
-        maxLength = highPointer - lowStart;
-      }
-      lowPointer = highPointer;
-      highPointer++;
-      lowStart = highPointer;
+      counter = 1;
     }
+    if (counter > maxLength) maxLength = counter;
   }
-
-  return Math.max(maxLength, nums.length);
+  return maxLength;
 }

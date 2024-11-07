@@ -22,6 +22,20 @@ class MyHashSet {
     newNode.next = this.head;
     this.head = newNode;
   }
+  remove(key: number): void {
+    let currentNode = this.head;
+    if (currentNode?.value === key) {
+      this.head = this.head?.next;
+      return;
+    }
+    while (currentNode && currentNode.next) {
+      if (currentNode.next.value === key) {
+        currentNode.next = currentNode.next.next;
+        return;
+      }
+      currentNode = currentNode.next;
+    }
+  }
 }
 
 /**

@@ -10,7 +10,9 @@ class MyHashSet {
   }
 
   add(key: number): void {
-    const newNode: HashNode = { value: key };
+    const newNode = new HashNode();
+    newNode.value = key;
+
     if (!this.head) {
       this.head = newNode;
       return;
@@ -24,8 +26,9 @@ class MyHashSet {
   }
   remove(key: number): void {
     let currentNode = this.head;
+    if (!this.head) return;
     if (currentNode?.value === key) {
-      this.head = this.head?.next;
+      this.head = this.head.next;
       return;
     }
     while (currentNode && currentNode.next) {
@@ -38,8 +41,10 @@ class MyHashSet {
   }
   contains(key: number): boolean {
     let currentNode = this.head;
+    if (!currentNode) return false;
+
     while (currentNode) {
-      if (key === currentNode.value) {
+      if (currentNode.value === key) {
         return true;
       }
       currentNode = currentNode.next;

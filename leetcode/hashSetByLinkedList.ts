@@ -36,6 +36,16 @@ class MyHashSet {
       currentNode = currentNode.next;
     }
   }
+  contains(key: number): boolean {
+    let currentNode = this.head;
+    while (currentNode) {
+      if (key === currentNode.value) {
+        return true;
+      }
+      currentNode = currentNode.next;
+    }
+    return false;
+  }
 }
 
 /**

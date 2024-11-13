@@ -6,11 +6,8 @@ class Solution {
   hasDuplicate(nums: number[]): boolean {
     const map = {};
     for (let i = 0; i < nums.length; i++) {
+      if (map[nums[i]]) return true;
       map[nums[i]] = !map[nums[i]] ? 1 : map[nums[i]] + 1;
-    }
-
-    for (let num in map) {
-      if (map[num] > 1) return true;
     }
     return false;
   }

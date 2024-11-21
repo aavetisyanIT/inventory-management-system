@@ -12,10 +12,7 @@ function topKFrequent(nums: number[], k: number): number[] {
     }
   }
 
-  console.log("map", map);
-
   for (let key in map) {
-    console.log(`${key}: ${map[key]}`);
     const currentNum = Number(key);
     const currentNumFrequency = map[currentNum];
     if (!bucket[currentNumFrequency]) {
@@ -24,14 +21,10 @@ function topKFrequent(nums: number[], k: number): number[] {
       bucket[currentNumFrequency].push(currentNum);
     }
   }
-  console.log("AAA bucket", bucket);
 
-  for (let j = nums.length; j >= k; j--) {
-    console.log("AAA bucket[j]", bucket[j]);
-
-    if (bucket[j]) {
-      result.push(...bucket[j]);
-    }
+  for (let i = nums.length; i >= 0; i--) {
+    if (bucket[i]) result.push(...bucket[i]);
+    if (result.length === k) break;
   }
 
   return result;

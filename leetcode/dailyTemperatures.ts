@@ -1,15 +1,17 @@
 function dailyTemperatures(temperatures: number[]): number[] {
-  const answer: number[] = [];
+  const answer: number[] = new Array(temperatures.length).fill(0);
+  const stack: number[] = [];
+
   for (let i = 0; i < temperatures.length; i++) {
-    let j = i + 1;
-    while (temperatures[j] <= temperatures[i] && j < temperatures.length) {
-      j++;
+    const currentTemp = temperatures[i];
+    while (
+      stack.length > 0 &&
+      currentTemp > temperatures[stack[stack.length - 1]]
+    ) {
+      const lastStackTemp = stack.pop();
+      answer[i] = i - stack[i];
     }
-    if (j === temperatures.length) {
-      answer.push(0);
-    } else {
-      answer.push(j - i);
-    }
+    stack.push(i);
   }
 
   return answer;

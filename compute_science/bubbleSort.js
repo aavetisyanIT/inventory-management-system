@@ -1,26 +1,20 @@
-function swap(smallIndex, largeIndex, arr) {
-  const temp = arr[smallIndex];
-  arr[smallIndex] = arr[largeIndex];
-  arr[largeIndex] = temp;
-}
+function bubbleSort(arr = [], comparator) {
+  function swap(smallIndex, largeIndex, arr) {
+    const temp = arr[smallIndex];
+    arr[smallIndex] = arr[largeIndex];
+    arr[largeIndex] = temp;
+  }
+  if (typeof comparator !== "function") comparator = (a, b) => a - b;
 
-let count = 0;
-function bubbleSort(arr) {
-  let noSwap = true;
-  for (let i = arr.length - 1; i >= 0; i--) {
-    noSwap = true;
-    for (let j = 0; j <= i - 1; j++) {
-      count++;
-      if (arr[j + 1] < arr[j]) {
-        swap(j, j + 1, arr);
-        noSwap = false;
+  for (let i = arr.length; i > 0; i--) {
+    let isAnySwap = false;
+    for (let j = 0; j < i - 1; j++) {
+      if (comparator(arr[j], arr[j + 1]) > 0) {
+        swap(j + 1, j, arr);
+        isAnySwap = true;
       }
     }
-    if (noSwap) break;
+    if (!isAnySwap) break;
   }
+  return arr;
 }
-
-const testArr = [3, 7, 1, 6, 3, 5, 123, 234, 312435, 356];
-bubbleSort(testArr);
-console.log(testArr);
-console.log("Count: ", count);

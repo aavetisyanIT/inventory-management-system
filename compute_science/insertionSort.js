@@ -4,10 +4,6 @@ function insertionSort(arr) {
   for (let i = 1; i < arr.length; i++) {
     let currentValue = arr[i];
     let j = i - 1;
-    console.log("arr: ", arr);
-    console.log("currentValue: ", currentValue);
-    console.log("j: ", j);
-    console.log("arr[j]: ", arr[j]);
 
     while (arr[j] > currentValue && j >= 0) {
       console.log("arr[j + 1]: ", arr[j + 1], j + 1);

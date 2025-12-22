@@ -6,7 +6,6 @@ function insertionSort(arr) {
     let j = i - 1;
 
     while (arr[j] > currentValue && j >= 0) {
-      console.log("arr[j + 1]: ", arr[j + 1], j + 1);
       arr[j + 1] = arr[j];
       j--;
     }

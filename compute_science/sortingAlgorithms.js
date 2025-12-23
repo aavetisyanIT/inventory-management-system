@@ -20,9 +20,6 @@ function selectionSort(arr) {
   return arr;
 }
 
-const testArr = [64, 34, 25, 12, 22, 11, 90];
-
-let bubbleCount = 0;
 function bubbleSort(arr) {
   for (let i = arr.length - 1; i >= 0; i--) {
     let isSwap = false;
@@ -37,10 +34,26 @@ function bubbleSort(arr) {
   return arr;
 }
 
+const testArr = [64, 34, 25, 12, 22, 11, 90];
 function insertionSort(arr) {
+  for (let i = 1; i < arr.length; i++) {
+    let currentNum = arr[i];
+    let j = i - 1;
+    while (j >= 0 && arr[j] > currentNum) {
+      console.log("current: ", currentNum);
+      console.log("j, arr[j]", j, arr[j]);
+      console.log("before swap arr", arr);
+      arr[j + 1] = arr[j];
+      console.log("after swap arr", arr);
+      j--;
+    }
+    console.log(
+      `currentNum is ${currentNum}, j is ${j} doing j+1 = currentNum`,
+    );
+    arr[j + 1] = currentNum;
+  }
   return arr;
 }
 
-bubbleSort(testArr);
+insertionSort(testArr);
 console.log(testArr);
-console.log(bubbleCount);

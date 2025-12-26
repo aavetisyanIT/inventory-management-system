@@ -28,5 +28,3 @@ function mergeSort(arr) {
 
   return merge(left, right);
 }
-
-console.log(mergeSort([1, 3, 5, 7, 12, 13, 2, 4, 6]));

@@ -6,24 +6,15 @@ function swap(left, right, arr) {
   arr[left] = temp;
 }
 
-function pivot(arr) {
-  let pivotValue = arr[0];
-  let swapIndex = 0;
+function pivot(arr, start = 0, end = arr.length - 1) {
+  let pivotValue = arr[start];
+  let swapIndex = start;
 
-  for (let i = 1; i < arr.length; i++) {
-    console.log("=========================");
-    console.log("AAA arr[i]:", arr[i]);
-    console.log("AAA arr:", arr);
-
+  for (let i = 1; i <= end; i++) {
     if (arr[i] < pivotValue) {
       swapIndex++;
-      console.log("AAA swapIndex:", swapIndex);
       swap(i, swapIndex, arr);
-
-      console.log("AAA swapped arr:", arr);
     }
-
-    console.log("=========================");
   }
   swap(0, swapIndex, arr);
   return swapIndex;

@@ -37,8 +37,22 @@ function selectionSort(nums) {
   return nums;
 }
 
-selectionSort(unsortedArr);
-function insertionSort() {}
+function insertionSort(nums) {
+  for (let i = 1; i < nums.length; i++) {
+    let currentNum = nums[i];
+    let j = i - 1;
+    while (j >= 0 && nums[j] > currentNum) {
+      console.log(nums[j]);
+      nums[j + 1] = nums[j];
+      j--;
+    }
+    nums[j + 1] = currentNum;
+  }
+
+  return nums;
+}
+insertionSort(unsortedArr);
+
 function mergeSort() {}
 function quickSort() {}
 

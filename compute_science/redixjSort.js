@@ -49,4 +49,4 @@ function radixSort(numArr) {
   return numArr;
 }
 
-console.log(radixSort([10, 7, 1, 4, 5678, 2734]));
+console.log(radixSort([23, 345, 5467, 12, 2345, 9852]));

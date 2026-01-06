@@ -23,13 +23,24 @@ function bubbleSort(nums) {
   return nums;
 }
 
-bubbleSort(unsortedArr);
+function selectionSort(nums) {
+  for (let i = 0; i < nums.length; i++) {
+    let lowestNumIndex = i;
+    for (let j = i; j < nums.length; j++) {
+      const currentNum = nums[j];
+      if (currentNum < nums[lowestNumIndex]) {
+        lowestNumIndex = j;
+      }
+      if (i !== lowestNumIndex) swap(i, lowestNumIndex, nums);
+    }
+  }
+  return nums;
+}
 
-function selectionSort() {}
+selectionSort(unsortedArr);
 function insertionSort() {}
 function mergeSort() {}
 function quickSort() {}
 
 console.log(unsortedArr);
 console.log(swapCount);
-console.log(bubbleSortCount);

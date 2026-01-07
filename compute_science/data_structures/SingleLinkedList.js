@@ -72,6 +72,21 @@ class SingleLinkedList {
 
     return this;
   }
+
+  get(index) {
+    if (index > this.length || index < 0) return null;
+
+    if (!this.head) return null;
+    let currentNode = this.head;
+    let currentIndex = 0;
+
+    while (currentIndex < index) {
+      currentNode = currentNode.next;
+      currentIndex++;
+    }
+
+    return currentNode;
+  }
 }
 
 const myList = new SingleLinkedList();

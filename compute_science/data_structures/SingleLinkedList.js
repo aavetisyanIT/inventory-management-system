@@ -27,9 +27,34 @@ class SingleLinkedList {
     this.length++;
     return this;
   }
+
+  pop() {
+    if (!this.head) return null;
+    let current = this.head;
+    let newTail = current;
+
+    while (current.next) {
+      newTail = current;
+      current = current.next;
+    }
+
+    this.tail = newTail;
+    this.tail.next = null;
+    this.length--;
+    if (this.length === 0) {
+      this.head = null;
+      this.tail = null;
+    }
+    return current;
+  }
 }
 
 const myList = new SingleLinkedList();
 myList.push(1);
+myList.push(2);
 myList.push(3);
+
+console.log(myList.pop());
+console.log(myList.pop());
+
 console.log(myList);

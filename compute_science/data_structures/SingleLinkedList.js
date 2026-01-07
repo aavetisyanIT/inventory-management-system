@@ -96,10 +96,10 @@ class SingleLinkedList {
   }
 
   insert(index, val) {
-    if (index > this.length || index < 0) return false;
+    if (index >= this.length || index < 0) return false;
 
     if (index === 0) return !!this.unshift(val);
-    if (index === this.length) return !!this.push(val);
+    if (index === this.length - 1) return !!this.push(val);
 
     const newNode = new Node(val);
     const prevNode = this.get(index - 1);
@@ -115,7 +115,7 @@ myList.push(1);
 myList.push(2);
 myList.push(3);
 
-console.log(myList.insert(1, "new node"));
+console.log(myList.insert(2, "new end"));
 
 // console.log(myList.pop());
 

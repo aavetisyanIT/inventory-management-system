@@ -78,14 +78,21 @@ class SingleLinkedList {
 
     if (!this.head) return null;
     let currentNode = this.head;
-    let currentIndex = 0;
+    let counter = 0;
 
-    while (currentIndex < index) {
+    while (counter < index) {
       currentNode = currentNode.next;
-      currentIndex++;
+      counter++;
     }
 
     return currentNode;
+  }
+
+  set(index, val) {
+    const node = this.get(index);
+    if (!node) return false;
+    node.val = val;
+    return true;
   }
 }
 
@@ -94,8 +101,8 @@ myList.push(1);
 myList.push(2);
 myList.push(3);
 
-console.log(myList.get(1));
+console.log(myList.set(1, 100));
 
 // console.log(myList.pop());
 
-// console.log(myList);
+console.log(myList);

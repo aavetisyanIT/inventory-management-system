@@ -94,6 +94,20 @@ class SingleLinkedList {
     node.val = val;
     return true;
   }
+
+  insert(index, val) {
+    if (index > this.length || index < 0) return false;
+
+    if (index === 0) return !!this.unshift(val);
+    if (index === this.length) return !!this.push(val);
+
+    const newNode = new Node(val);
+    const prevNode = this.get(index - 1);
+    newNode.next = prevNode.next;
+    prevNode.next = newNode;
+    this.length++;
+    return true;
+  }
 }
 
 const myList = new SingleLinkedList();
@@ -101,8 +115,8 @@ myList.push(1);
 myList.push(2);
 myList.push(3);
 
-console.log(myList.set(1, 100));
+console.log(myList.insert(1, "new node"));
 
 // console.log(myList.pop());
 
-console.log(myList);
+console.log(JSON.stringify(myList, undefined, 2));

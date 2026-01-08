@@ -125,23 +125,19 @@ class SingleLinkedList {
   reverse() {
     if (!this.head) return null;
 
-    let current = this.head;
+    let middle = this.head;
     this.head = this.tail;
-    this.tail = current;
-    let next = null;
-    let prev = null;
+    this.tail = middle;
+    let left = null;
+    let right = null;
 
-    /**100 -> 201 -> 250 -> 350 -> 999
-     *
-     **/
     for (let i = 1; i <= this.length; i++) {
-      next = current.next;
-      current.next = prev;
+      right = middle.next;
+      middle.next = left;
 
-      prev = current;
-      current = next;
+      left = middle;
+      middle = right;
     }
-    // console.log(this);
 
     return this;
   }
@@ -164,4 +160,5 @@ myList.push(350);
 myList.push(999);
 
 myList.reverse();
-console.log(JSON.stringify(myList, undefined, 4));
+// console.log(JSON.stringify(myList, undefined, 4));
+myList.printList(myList.head);

@@ -108,15 +108,60 @@ class SingleLinkedList {
     this.length++;
     return true;
   }
+
+  remove(index) {
+    if (index >= this.length || index < 0) return null;
+    if (!this.head) return null;
+
+    if (index === 0) return this.shift();
+    if (index === this.length - 1) return this.pop();
+
+    const prevNode = this.get(index - 1);
+    const removedNode = prevNode.next;
+    prevNode.next = prevNode.next.next;
+    return removedNode;
+  }
+
+  reverse() {
+    if (!this.head) return null;
+
+    let current = this.head;
+    this.head = this.tail;
+    this.tail = current;
+    let next = null;
+    let prev = null;
+
+    /**100 -> 201 -> 250 -> 350 -> 999
+     *
+     **/
+    for (let i = 1; i <= this.length; i++) {
+      next = current.next;
+      current.next = prev;
+
+      prev = current;
+      current = next;
+    }
+    // console.log(this);
+
+    return this;
+  }
+
+  printList(node) {
+    let result = [];
+    while (node !== null) {
+      result.push(node.val);
+      node = node.next;
+    }
+    console.log(result.join(" -> "));
+  }
 }
 
 const myList = new SingleLinkedList();
-myList.push(1);
-myList.push(2);
-myList.push(3);
+myList.push(100);
+myList.push(201);
+myList.push(250);
+myList.push(350);
+myList.push(999);
 
-console.log(myList.insert(2, "new end"));
-
-// console.log(myList.pop());
-
-console.log(JSON.stringify(myList, undefined, 2));
+myList.reverse();
+console.log(JSON.stringify(myList, undefined, 4));

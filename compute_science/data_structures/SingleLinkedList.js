@@ -74,15 +74,13 @@ class SingleLinkedList {
   }
 
   get(index) {
-    if (index > this.length || index < 0) return null;
+    if (!this.head || index + 1 > this.length || index < 0) return null;
 
-    if (!this.head) return null;
+    let inxCounter = 0;
     let currentNode = this.head;
-    let counter = 0;
-
-    while (counter < index) {
+    while (inxCounter !== index) {
       currentNode = currentNode.next;
-      counter++;
+      inxCounter++;
     }
 
     return currentNode;
@@ -162,3 +160,9 @@ myList.push(999);
 myList.reverse();
 // console.log(JSON.stringify(myList, undefined, 4));
 myList.printList(myList.head);
+
+/**
+ * 15
+ *
+ *
+ */

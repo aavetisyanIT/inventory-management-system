@@ -129,7 +129,7 @@ class SingleLinkedList {
     let left = null;
     let right = null;
 
-    for (let i = 1; i <= this.length; i++) {
+    for (let i = 0; i < this.length; i++) {
       right = middle.next;
       middle.next = left;
 

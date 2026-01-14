@@ -1,7 +1,6 @@
 const unsortedArr = [3, 2, 10, 12, 0, -2, 6, 2];
 let swapCount = 0;
 function swap(left, right, arr) {
-  swapCount++;
   const temp = arr[left];
   arr[left] = arr[right];
   arr[right] = temp;
@@ -98,13 +97,21 @@ function pivot(arr, start = 0, end = arr.length - 1) {
     }
   }
   swap(start, pivotIndex, arr);
-  console.log(arr);
-  return arr;
+  return pivotIndex;
 }
 
 pivot(unsortedArr);
 
-function quickSort() {}
+function quickSort(arr, start = 0, end = arr.length - 1) {
+  swapCount++;
 
-// console.log(mergeSort(unsortedArr));
-// console.log(swapCount);
+  if (start < end) {
+    const pivotIndex = pivot(arr, start, end);
+    quickSort(arr, start, pivotIndex - 1);
+    quickSort(arr, pivotIndex + 1, end);
+    return arr;
+  }
+}
+
+console.log(quickSort(unsortedArr));
+console.log(swapCount);

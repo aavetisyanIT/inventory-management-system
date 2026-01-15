@@ -50,15 +50,53 @@ class DoublyLinkedList {
 
     return oldTail;
   }
+
+  shift() {
+    if (!this.head) return null;
+
+    const oldHead = this.head;
+    if (this.length === 1) {
+      this.head = null;
+      this.tail = null;
+      this.length--;
+      return oldHead;
+    }
+    const newHead = this.head.next;
+    oldHead.next = null;
+    newHead.prev = null;
+    this.head = newHead;
+    this.length--;
+
+    return oldHead;
+  }
+
+  unshift(val) {
+    const newHead = new Node(val);
+
+    if (!this.head) {
+      this.head = newHead;
+      this.tail = newHead;
+      this.length++;
+
+      return this;
+    }
+
+    this.head.prev = newHead;
+    newHead.next = this.head;
+    this.head = newHead;
+    this.length++;
+
+    return this;
+  }
 }
 
 const myList = new DoublyLinkedList();
-myList.push(100);
-myList.push(201);
-myList.push(250);
-myList.push(350);
-myList.push(999);
+// myList.push(100);
+// myList.push(201);
+// myList.push(250);
+// myList.push(350);
+// myList.push(999);
 
-console.log(myList.pop());
+console.log(myList.unshift("newHead"));
 
 console.log(myList);

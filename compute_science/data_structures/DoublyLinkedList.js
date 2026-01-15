@@ -114,6 +114,13 @@ class DoublyLinkedList {
 
     return currentNode;
   }
+
+  set(index, val) {
+    const foundNode = this.get(index);
+    if (!foundNode) return false;
+    foundNode.val = val;
+    return true;
+  }
 }
 
 const myList = new DoublyLinkedList();

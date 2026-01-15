@@ -9,15 +9,23 @@ function swap(leftIndex, rightIndex, arr) {
 function pivot(arr, start = 0, end = arr.length - 1) {
   let pivotIndex = start;
 
-  for (let i = 1; i <= end; i++) {
-    if (arr[i] <= arr[start]) {
+  for (let i = start + 1; i <= end; i++) {
+    if (arr[i] < arr[start]) {
       pivotIndex++;
       swap(i, pivotIndex, arr);
     }
   }
   swap(start, pivotIndex, arr);
-
   return pivotIndex;
 }
 
-pivot(unsortedArr);
+function quickSort(arr, start = 0, end = arr.length - 1) {
+  if (start < end) {
+    const pivotInd = pivot(arr, start, end);
+    quickSort(arr, start, pivotInd - 1);
+    quickSort(arr, pivotInd + 1, end);
+  }
+  return arr;
+}
+
+console.log(quickSort(unsortedArr));

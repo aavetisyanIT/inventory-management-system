@@ -5,7 +5,7 @@ def binary_search(arr, num):
     left = 0
     right = len(arr)
     while left < right:
-        mid_index = math.floor((left + right) / 2)
+        mid_index = (left + right) // 2
         if num == arr[mid_index]:
             return mid_index
         if num < arr[mid_index]:

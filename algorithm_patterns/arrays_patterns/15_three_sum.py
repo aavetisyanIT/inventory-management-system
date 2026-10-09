@@ -1,32 +1,19 @@
 class Solution:
     def threeSum(self, nums: list[int]) -> list[list[int]]:
-        result = []
+        # define result array
+        # sort nums in place
 
-        nums.sort()
 
-        for i, num in enumerate(nums):
-            if nums[i] == nums[i - 1] and i > 0:
-                continue
+        # for loop for first num
+            #check for duplicated first num and skip
 
-            left, right = i + 1, len(nums) - 1
-
-            while left < right:
-                threeSum = num + nums[left] + nums[right]
-
-                if threeSum == 0:
-                    result.append([num, nums[left], nums[right]])
-
-                    left += 1
-                    right -= 1
-
-                    while nums[left] == nums[left - 1] and left < right:
-                        left += 1
-
-                    while nums[right] == nums[right + 1] and left < right:
-                        right -= 1
-
-                elif threeSum < 0:
-                    left += 1
-                else:
-                    right -= 1
-        return result
+            #create left and right pointers
+            #while loop where left < right
+                #calculate sum of current three numbers
+                #check if three sum is 0
+                    #append array of current three nums to result
+                    #move left and right pointers to next positions
+                    #check if current and next positions are the same and skip duplicates
+                #if three sum is more than 0 move right to next position
+                #else move left to next position
+        #return result
